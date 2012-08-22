@@ -17,9 +17,13 @@ Formats the destination URL as sip:%(number)s@%(proxy)s;user=phone
 Requires that sox and pjsua be installed on the testing machine...
 """
 import sys, os, threading, logging, traceback, tempfile, shutil, subprocess, Queue, socket
+import logging.handlers
 import pjsua as pj
 log = logging.getLogger( __name__ )
 pjsua_log = logging.getLogger( 'pjsua' )
+
+SYSLOG_DEV = '/dev/log'
+SYS_FORMAT = os.path.basename(sys.argv[0]) + '[%(process)d]: %(levelname)s: %(name)s: %(message)s'
 
 siptest_directory = os.path.dirname( __file__ )
 DEFAULT_TEST_FILE = os.path.join( siptest_directory, 'test.wav' )
@@ -215,6 +219,12 @@ MAX_FREQUENCY_DELTA = 20 # in Hz
 ) = range( 9 )
 
 def main():
+    sys_log = logging.handlers.SysLogHandler( SYSLOG_DEV )
+    sys_log.setLevel( logging.DEBUG )
+    sys_log.setFormatter( logging.Formatter( SYS_FORMAT ) )
+    log.setLevel( logging.DEBUG )
+    log.addHandler(sys_log)
+
     from optparse import OptionParser, OptionGroup
     global lib
     parser = OptionParser()
