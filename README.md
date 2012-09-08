@@ -15,8 +15,9 @@ siptest documentation
 =====================
 
 Dependencies:
-    sox for audio analysis
-    pjsip for SIP registration and dialing
+
+    - sox for audio analysis
+    - pjsip for SIP registration and dialing
 
 To build pjsip python libraries:
 
@@ -42,6 +43,7 @@ Sample usage:
     0
 
 Exit codes:
+
     0 - SUCCESS
     1 - REG_FAILURE
     2 - UNKNOWN_USER
@@ -65,14 +67,17 @@ detectsipalg documentation
 ==========================
 
 Dependencies: 
-    A remote SIP ALG test server (see http://dev.sipdoc.net/wiki/sip-stuff/SIP-ALG-Detector)
+
+    - A remote SIP ALG test server (see http://dev.sipdoc.net/wiki/sip-stuff/SIP-ALG-Detector)
 
 Example:
+
     detectsipalg --address=sipalg.example.com
     echo $?
     11
  
 Exit codes:
+
     10 - DETECTED
     11 - NOT_DETECTED
     12 - TEST_FAILED_SOCKET_TIMEOUT
